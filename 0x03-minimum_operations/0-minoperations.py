@@ -7,6 +7,11 @@ from math import sqrt
 
 
 def minOperations(n):
+    """
+    minOperation
+    :param n: int
+    :return: int
+    """
     x = 0
     if n <= 1:
         return 0
