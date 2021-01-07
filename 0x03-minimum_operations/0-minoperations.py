@@ -12,11 +12,9 @@ def minOperations(n):
     :param n: int
     :return: int
     """
-    x = 0
-    if n <= 1:
+    if n < 2:
         return 0
-    for i in range(2, int(sqrt(n) + 1)):
-        while n % i == 0:
-            x += i
-            n /= i
-    return x
+    else:
+        for count in range(2, n + 1):
+            if n % count == 0:
+                return minOperations(n // count) + count
