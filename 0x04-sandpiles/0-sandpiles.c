@@ -1,86 +1,90 @@
 #include "sandpiles.h"
-
+#include <stdlib.h>
+#include <stdio.h>
 /**
- * sandpiles_sum - function sandpiles
- * @grid1: int matrix
- * @grid2: int matrix
+ *chek_grid - pour verif de grid
+ *@grid1: matrice
+ *Return: int(mean true)
  */
-void sandpiles_sum(int grid1[3][3], int grid2[3][3])
+int chek_grid(int grid1[3][3])
 {
-	add_sandpile(grid1, grid2);
-	while (is_unstable(grid1))
-		print_sandpile(grid1),
-		topple_sandpile(grid1, grid2);
-
-}
-
-/**
- * add_sandpile - adds sandpile
- * @grid1: int
- * @grid2: int
- */
-void add_sandpile(int grid1[3][3], int grid2[3][3])
-{
-	size_t i, j;
-
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++)
-			grid1[i][j] += grid2[i][j], grid2[i][j] = 0;
-}
-
-/**
- * topple_sandpile - void function
- * @grid1: int
- * @grid2: int
- */
-void topple_sandpile(int grid1[3][3], int grid2[3][3])
-{
-	size_t i, j;
-
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++)
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
 			if (grid1[i][j] > 3)
-				(i > 0) ? grid2[i - 1][j] += 1 : 0,
-				(j > 0) ? grid2[i][j - 1] += 1 : 0,
-				(i < 2) ? grid2[i + 1][j] += 1 : 0,
-				(j < 2) ? grid2[i][j + 1] += 1 : 0,
-				grid1[i][j] -= 4;
-	add_sandpile(grid1, grid2);
+			{
+				return (0);
+			}
+
+		}
+	}
+	return (1);
 }
-
 /**
- * is_unstable - function unstable
- * @grid: int
- * Return: 1 if unstable else 0
+ *sallah_grid - fonction de rectification de grid
+ *@grid1: matrice
+ *Return: void(mean true)
  */
-int is_unstable(int grid[3][3])
-{
-	size_t i, j;
-
-	for (i = 0; i < 3; i++)
-		for (j = 0; j < 3; j++)
-			if (grid[i][j] > 3)
-				return (1);
-	return (0);
-}
-
-/**
- * print_sandpile - prints the sandpile
- * @grid: int
- */
-void print_sandpile(int grid[3][3])
+void sallah_grid(int grid1[3][3])
 {
 	int i, j;
 
-	printf("=\n");
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
 		{
-			if (j)
-				printf(" ");
-			printf("%d", grid[i][j]);
+			if (grid1[i][j] > 3)
+			{
+				if (j + 1 < 3)
+					grid1[i][j + 1] = grid1[i][j + 1] + 1;
+				if (j - 1 > -1)
+					grid1[i][j - 1] = grid1[i][j - 1] + 1
+				grid1[i][j] = grid1[i][j] - 4;
+				if (i + 1 < 3)
+					grid1[i + 1][j] = grid1[i + 1][j] + 1;
+				if (i - 1 > -1)
+					grid1[i - 1][j] = grid1[i - 1][j] + 1;
+;
+			}
+		}
+
+	}
+}
+/**
+ *sandpiles_sum - main function
+ *@grid1: matrice
+ *@grid2: matrice
+ *Return: nothing(mean true)
+ */
+void sandpiles_sum(int grid1[3][3], int grid2[3][3])
+{
+	int i, j;
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			grid1[i][j] = grid2[i][j] + grid1[i][j];
+		}
+
+	}
+
+
+	while (!chek_grid(grid1))
+	{
+		printf("=\n");
+		for (i = 0; i < 3; i++)
+		{
+			for (j = 0; j < 3; j++)
+			{
+				if (j)
+					printf(" ");
+				printf("%d", grid1[i][j]);
 		}
 		printf("\n");
+	}
+		sallah_grid(grid1);
+
 	}
 }
