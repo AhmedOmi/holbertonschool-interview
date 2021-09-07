@@ -6,13 +6,14 @@
  * Return: 
  **/
 
-int value_cmp(int *a, int *b)
+int value_cmp(const void *a, const void *b)
 {
-    int val1 = *a;
-    int val2 = *b;
-    int x = val1 - val2;
-    return x;
+    int val1 = *(int *)a;
+    int val2 = *(int *)b;
+
+    return (val1 - val2);
 }
+
 /**
  * check - function check word in string
  * @s: char
